@@ -17,6 +17,7 @@
                 class="border max-h-24 max-w-24 grid justify-items-center items-center hover:bg-blue-500 hover:text-white hover:font-bold cursor-pointer"
                 v-for="(date, index) in dates"
                 :key="index"
+                @click="pickDate($event)"
             >
                 {{ date }}
             </div>
@@ -43,30 +44,59 @@ export default {
         }
         this.now = dayjs().format("MMMM YYYY");
         this.dates = dayjs(this.now).daysInMonth();
-        console.log(this.dates);
     },
     methods: {
         monthBack: function() {
-            let newNav = this.nav--;
-            this.now = dayjs()
-                .subtract(newNav, "month")
-                .format("MMMM YYYY");
-            console.log(
-                dayjs()
+            if (this.nav <= 2) {
+                this.nav = 1;
+                let newNav = this.nav++;
+                this.now = dayjs()
                     .subtract(newNav, "month")
-                    .format("MMMM YYYY")
-            );
+                    .format("MMMM YYYY");
+                console.log(
+                    dayjs()
+                        .subtract(newNav, "month")
+                        .format("MMMM YYYY")
+                );
+            } else {
+                let newNav = this.nav++;
+                this.now = dayjs()
+                    .subtract(newNav, "month")
+                    .format("MMMM YYYY");
+                console.log(
+                    dayjs()
+                        .subtract(newNav, "month")
+                        .format("MMMM YYYY")
+                );
+            }
         },
         monthNext: function() {
-            let newNav = this.nav++;
-            this.now = dayjs()
-                .add(newNav, "month")
-                .format("MMMM YYYY");
-            console.log(
-                dayjs()
+            if (this.nav <= 2) {
+                // wenn nav größer als 2 dann setz nav zurück und addiere wieder pro klick einen drauf, aber die scheiße geht nich
+                this.nav = 1;
+                let newNav = this.nav++;
+                this.now = dayjs()
                     .add(newNav, "month")
-                    .format("MMMM YYYY")
-            );
+                    .format("MMMM YYYY");
+                console.log(
+                    dayjs()
+                        .add(newNav, "month")
+                        .format("MMMM YYYY")
+                );
+            } else {
+                let newNav = this.nav++;
+                this.now = dayjs()
+                    .add(newNav, "month")
+                    .format("MMMM YYYY");
+                console.log(
+                    dayjs()
+                        .add(newNav, "month")
+                        .format("MMMM YYYY")
+                );
+            }
+        },
+        pickDate: function(event) {
+            alert(`Du hast auf den ${event.target.innerText}.ten geklickt`);
         },
     },
 };
