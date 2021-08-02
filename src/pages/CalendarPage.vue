@@ -5,8 +5,10 @@
                 {{ now }}
             </div>
             <div class="flex">
-                <button class="bg-blue-500 py-2 px-4 rounded-lg text-white hover:bg-red-500 mr-4" v-on:click="monthBack">Back</button>
-                <button class="bg-blue-500 py-2 px-4 rounded-lg text-white hover:bg-red-500" v-on:click="monthNext">Next</button>
+                <button class="bg-blue-500 py-2 px-4 rounded-lg text-white hover:bg-red-500 mr-4" v-on:click="monthPrev += 1">Prev</button>
+                <button class="bg-blue-500 py-2 px-4 rounded-lg text-white hover:bg-red-500" v-on:click="monthNext += 1">Next</button>
+                <button class="bg-blue-500 py-2 px-4 rounded-lg text-white hover:bg-red-500" v-on:click="counter += 1">Counter</button>
+                <p>{{ counter }}</p>
             </div>
         </div>
         <div class="grid grid-rows-5 grid-cols-7 grid-flow-row gap-6">
@@ -14,7 +16,7 @@
                 {{ weekday }}
             </div>
             <div
-                class="border max-h-24 max-w-24 grid justify-items-center items-center hover:bg-blue-500 hover:text-white hover:font-bold cursor-pointer"
+                class="border max-h-24 max-w-24 grid justify-items-center items-center  hover:bg-blue-500 hover:text-white hover:font-bold cursor-pointer"
                 v-for="(date, index) in dates"
                 :key="index"
                 @click="pickDate($event)"
@@ -35,65 +37,57 @@ export default {
             months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
             dates: null,
             now: null,
-            nav: 1,
+            counter: null,
+            // switchMonth: 1,
         };
     },
     created() {
-        for (let i = 0; i < 31; i++) {
+        this.now = dayjs().format("MMMM YYYY");
+        for (let i = 0; i < dayjs().daysInMonth() + 1; i++) {
             this.dates = i;
         }
-        this.now = dayjs().format("MMMM YYYY");
-        this.dates = dayjs(this.now).daysInMonth();
     },
+    // updated: function() {
+    //     this.now = dayjs().format("MMMM YYYY");
+    // },
     methods: {
-        monthBack: function() {
-            if (this.nav <= 2) {
-                this.nav = 1;
-                let newNav = this.nav++;
-                this.now = dayjs()
-                    .subtract(newNav, "month")
-                    .format("MMMM YYYY");
-                console.log(
-                    dayjs()
-                        .subtract(newNav, "month")
-                        .format("MMMM YYYY")
-                );
-            } else {
-                let newNav = this.nav++;
-                this.now = dayjs()
-                    .subtract(newNav, "month")
-                    .format("MMMM YYYY");
-                console.log(
-                    dayjs()
-                        .subtract(newNav, "month")
-                        .format("MMMM YYYY")
-                );
-            }
+        monthPrev: function() {
+            this.counter = dayjs()
+                .subtract(this.counter, "month")
+                .format("MMMM YYYY");
+            // for (let i = 0; i < 100; i++) {
+            //     this.now = dayjs()
+            //         .subtract(i, "month")
+            //         .format("MMMM YYYY");
+            // }
+            // this.now = dayjs()
+            //     .subtract(1, "month")
+            //     .format("MMMM YYYY");
+            // let newValue = this.switchMonth++;
+            // newValue = this.switchMonth;
+            // this.now = dayjs()
+            //     .subtract(newValue, "month")
+            //     .format("MMMM YYYY");
+            // console.log(
+            //     dayjs()
+            //         .subtract(newValue, "month")
+            //         .format("MMMM YYYY")
+            // );
         },
         monthNext: function() {
-            if (this.nav <= 2) {
-                // wenn nav größer als 2 dann setz nav zurück und addiere wieder pro klick einen drauf, aber die scheiße geht nich
-                this.nav = 1;
-                let newNav = this.nav++;
-                this.now = dayjs()
-                    .add(newNav, "month")
-                    .format("MMMM YYYY");
-                console.log(
-                    dayjs()
-                        .add(newNav, "month")
-                        .format("MMMM YYYY")
-                );
-            } else {
-                let newNav = this.nav++;
-                this.now = dayjs()
-                    .add(newNav, "month")
-                    .format("MMMM YYYY");
-                console.log(
-                    dayjs()
-                        .add(newNav, "month")
-                        .format("MMMM YYYY")
-                );
-            }
+            this.counter = dayjs()
+                .add(this.counter, "month")
+                .format("MMMM YYYY");
+            // let newValue = this.switchMonth++;
+            // newValue = this.switchMonth;
+            // this.now = dayjs()
+            //     .add(newValue, "month")
+            //     .format("MMMM YYYY");
+            // console.log(
+            //     dayjs()
+            //         .add(newValue, "month")
+            //         .format("MMMM YYYY")
+            // );
         },
         pickDate: function(event) {
             alert(`Du hast auf den ${event.target.innerText}.ten geklickt`);
