@@ -34,13 +34,26 @@ export default {
             dates: null,
             now: null,
             monthNav: null,
+            firstDayOfMonth: null,
+            prevMonths: null,
+            // nextMonth: null,
+            // prevDate: null,
+            // prevLastDayOfMonth: null,
         };
     },
     created() {
         this.now = dayjs().format("MMMM YYYY");
         for (let i = 0; i < dayjs().daysInMonth() + 1; i++) {
-            this.dates = i;
+            if (i === this.now) {
+                this.dates = i;
+            } else {
+                this.dates = i;
+            }
         }
+        this.firstDayOfMonth = dayjs()
+            .set("date", 1)
+            .format("d");
+        console.log(this.firstDayOfMonth);
     },
     methods: {
         monthPrev: function() {
