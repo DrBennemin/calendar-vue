@@ -33,7 +33,7 @@ export default {
             months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
             dates: null,
             now: null,
-            counter: null,
+            monthNav: null,
         };
     },
     created() {
@@ -42,20 +42,24 @@ export default {
             this.dates = i;
         }
     },
-
     methods: {
         monthPrev: function() {
-            this.counter--;
-            console.log(this.counter);
+            this.monthNav--;
             this.now = dayjs()
-                .add(this.counter, "month")
+                .add(this.monthNav, "month")
                 .format("MMMM YYYY");
+            for (let i = 0; i < dayjs(this.now).daysInMonth() + 1; i++) {
+                this.dates = i;
+            }
         },
         monthNext: function() {
-            this.counter++;
+            this.monthNav++;
             this.now = dayjs()
-                .add(this.counter, "month")
+                .add(this.monthNav, "month")
                 .format("MMMM YYYY");
+            for (let i = 0; i < dayjs(this.now).daysInMonth() + 1; i++) {
+                this.dates = i;
+            }
         },
         pickDate: function(event) {
             alert(`Du hast auf den ${event.target.innerText}.ten geklickt`);
