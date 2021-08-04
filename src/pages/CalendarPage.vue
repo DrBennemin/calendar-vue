@@ -28,7 +28,6 @@
 
 <script>
 import dayjs from "dayjs";
-// import weekday from "dayjs";
 
 export default {
     data() {
@@ -45,9 +44,6 @@ export default {
             firstDayOfMonth: null,
             prevMonths: null,
             daysInMonth: [],
-            // nextMonth: null,
-
-            // prevLastDayOfMonth: null,
         };
     },
     created() {
@@ -66,78 +62,19 @@ export default {
         for (let i = 1; i < startOfMonth; i++) {
             this.prevDates = i;
         }
-
-        // for (
-        //     let i = 0;
-        //     i <
-        //     dayjs("03-01-2021")
-        //         .startOf("month")
-        //         .format("d") -
-        //         1;
-        //     i++
-        // ) {
-        //     this.prevDates.push(i);
-        //     console.log(this.prevDates[0]);
-        // }
-
-        // this.firstDayOfMonth =
-        //     dayjs("07-01-2021")
-        //         .startOf("month")
-        //         .format("d") - 1;
-
-        // this.firstDayOfMonth.forEach((day) => {
-        //     day - 1;
-        // });
-
-        // for (let i = 0; i < 31 + 1; i++) {
-        //     this.daysInMonth.push(i);
-        // }
-        // if (this.i == this.today) {
-        //     console.log("geil");
-        //     let todayBackground = document.getElementsByClassName(".days");
-        //     todayBackground.classList.add("bg-blue-500");
-        // } else {
-        //     this.dates = this.i;
-        // }
-        // this.firstDayOfMonth = dayjs()
-        //     .set("date", 1)
-        //     .format("d");
-        // if (this.daysInMonth.includes(this.today) === this.today) {
-        //     console.log("geil");
-        //     let today = document.getElementsByClassName(".days");
-        //     today.classList.add("bg-blue-500");
-        // }
-    },
-    mounted() {
-        // if (this.today === 4) {
-        //     console.log("geiles schwein");
-        // }
-        // console.log(thisDay);
-        // thisDay.classList.add("bg-blue-500", "text-white");
-        // let thisDay = this.dates[this.today - 1];
-        // this.dates.forEach(function(days) {
-        //     let thisDay = this.dates[this.today - 1];
-        //     console.log(days);
-        //     console.log(thisDay);
-        //     let todayClass = document.querySelector(".days");
-        //     todayClass.classList.add("bg-blue-500", "text-white");
-        // });
     },
     methods: {
         monthPrev: function() {
             this.monthNav--;
-            this.now = dayjs()
-                .add(this.monthNav, "month")
-                .format("MMMM YYYY");
+            //prettier-ignore
+            this.now = dayjs().add(this.monthNav, "month").format("MMMM YYYY");
             for (let i = 0; i < dayjs(this.now).daysInMonth() + 1; i++) {
                 this.dates = i;
             }
-            // if (this.startOfMonth(this.now) == 0) {
-            //     this.startOfMonth = "7";
-            // }
-            // for (let i = 1; i < this.startOfMonth(this.now); i++) {
-            //     this.prevDates = i;
-            // }
+            //prettier-ignore
+            for (let i = 1; i < dayjs(this.now).startOf("month").format("d"); i++) {
+                this.prevDates = i;
+            }
         },
         monthNext: function() {
             this.monthNav++;
@@ -147,19 +84,15 @@ export default {
             for (let i = 0; i < dayjs(this.now).daysInMonth() + 1; i++) {
                 this.dates = i;
             }
+            //prettier-ignore
+            for (let i = 1; i < dayjs(this.now).startOf("month").format("d"); i++) {
+                this.prevDates = i;
+            }
         },
         pickDate: function(event) {
             alert(`Du hast auf den ${event.target.innerText}.ten geklickt`);
         },
-        // showTodaysDate: function() {
-        //     let today = document.querySelector(".days");
-        //     console.log(today);
-        //     if (this.dates === this.today) {
-        //         today.classList.add("bg-blue-500");
-        //     }
-        // },
-        // ich will herausfinden mit welchem tag der monat startet (0-6) auf dieser grundlage dann eine subtraktion um heraus zu finden wie viele divs über die dafür angelegte for-schleife vor dem monats ersten gebaut werden müssen
-        // Dazu muss ich erstmal herausfinden wie ich überhaupt noch divs vor uns nach dem monats ersten in das grid einfügen kann.
+
         //Dann brauche ich eine möglichkeit die for-schleife der 31 tage des monats zu durchsuchen und abzugleichen mit dem heutigen tag, damit ich dann die klasse an den heutigen hinzufügen kann.
     },
 };
