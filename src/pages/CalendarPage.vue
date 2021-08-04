@@ -36,14 +36,11 @@ export default {
             months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
             dates: [],
             prevDates: null,
-            nextDates: null,
             startOfMonth: null,
             now: null,
             today: null,
             monthNav: null,
             firstDayOfMonth: null,
-            prevMonths: null,
-            daysInMonth: [],
         };
     },
     created() {
