@@ -23,11 +23,15 @@
                 {{ date }}
             </div>
         </div>
+        <calendar-nav></calendar-nav>
+        <calendar-item> </calendar-item>
     </div>
 </template>
 
 <script>
 import dayjs from "dayjs";
+import CalendarItem from "../components/CalendarItem.vue";
+import CalendarNav from "../components/CalendarNav.vue";
 
 export default {
     data() {
@@ -42,6 +46,10 @@ export default {
             monthNav: null,
             firstDayOfMonth: null,
         };
+    },
+    components: {
+        CalendarItem,
+        CalendarNav,
     },
     created() {
         this.now = dayjs().format("MMMM YYYY");
@@ -89,8 +97,6 @@ export default {
         pickDate: function(event) {
             alert(`Du hast auf den ${event.target.innerText}.ten geklickt`);
         },
-
-        //Dann brauche ich eine möglichkeit die for-schleife der 31 tage des monats zu durchsuchen und abzugleichen mit dem heutigen tag, damit ich dann die klasse an den heutigen hinzufügen kann.
     },
 };
 </script>
